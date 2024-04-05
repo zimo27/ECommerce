@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, IconButton, Box, List, ListItem, ListItemText, Button, Menu, MenuItem } from '@mui/material';
 import TextField from '@mui/material/TextField';
-
+import WebHeader from './WebHeader';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ProductCard from './ProductCard';
 
@@ -67,7 +67,9 @@ const Shop: React.FC = () => {
   
 
     return (
+        
         <Box>
+            <WebHeader />
           <Box sx={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1, padding: '16px' }}>
   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
     <Typography variant="h6" component="div">
