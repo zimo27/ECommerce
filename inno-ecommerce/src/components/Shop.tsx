@@ -10,11 +10,13 @@ interface Product {
   price: number;
   rating: number;
   stock: number;
+  category: string;
 }
 
 const Shop: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('https://dummyjson.com/products')
@@ -27,6 +29,12 @@ const Shop: React.FC = () => {
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));
   }, []);
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
+  };
+
+  const filteredProducts = selectedCategory ? products.filter(product => product.category === selectedCategory) : products;
 
   return (
     <Box>
@@ -48,7 +56,15 @@ const Shop: React.FC = () => {
           </Typography>
           <List sx={{ padding: 0 }}>
             {categories.map(category => (
-              <ListItem button key={category} sx={{ padding: 0 }}>
+              <ListItem
+                button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                sx={{
+                  margin: '-14px 0',
+                  backgroundColor: selectedCategory === category ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
+                }}
+              >
                 <ListItemText primary={category} />
               </ListItem>
             ))}
@@ -56,11 +72,13 @@ const Shop: React.FC = () => {
         </Box>
 
         <Box sx={{ width: '75%', marginLeft: '25%', padding: '16px' }}>
-          <Typography variant="h2" gutterBottom>
-            Shop
-          </Typography>
+          {selectedCategory && (
+            <Typography variant="h2" gutterBottom>
+              {selectedCategory}
+            </Typography>
+          )}
           <Grid container spacing={3}>
-            {products.map(product => (
+            {filteredProducts.map(product => (
               <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
                 <ProductCard product={product} />
               </Grid>
