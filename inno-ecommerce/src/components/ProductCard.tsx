@@ -16,7 +16,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Card>
+    <Card sx={{ height: '100%' }}>
       <CardContent>
         <Typography variant="h4" gutterBottom>
           {product.title}
