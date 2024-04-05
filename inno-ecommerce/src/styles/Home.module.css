@@ -29,7 +29,7 @@
   }
   
   .getStartedButton {
-    background-color: #ffc107;
+    background-color: #292823;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -40,7 +40,7 @@
   }
   
   .getStartedButton:hover {
-    background-color: #e0a800;
+    background-color: #525046;
   }
   
   .footer {
