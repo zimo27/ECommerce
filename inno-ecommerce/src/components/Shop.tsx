@@ -66,33 +66,43 @@ const Shop: React.FC = () => {
               <ShoppingCartIcon />
             </IconButton>
             <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              
-            >
-              <Box sx={{ p: 2 }}>
-                <Typography variant="h6">Cart</Typography>
-                <List>
-                  {cart.map(item => (
-                    <ListItem key={item.id}>
-                      <ListItemText primary={item.title} />
-                      <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                PaperProps={{
+                    sx: {
+                    backgroundColor: '#333',
+                    color: '#fff',
+                    },
+                }}
+                >
+                <Box sx={{ p: 2 }}>
+                    <Typography variant="h6">Cart</Typography>
+                    {cart.length > 0 ? (
+                    <List>
+                        {cart.map(item => (
+                        <ListItem key={item.id}>
+                            <ListItemText primary={item.title} />
+                            <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
+                        </ListItem>
+                        ))}
+                    </List>
+                    ) : (
+                    <Typography variant="body1">Cart is empty</Typography>
+                    )}
+                </Box>
             </Menu>
+
           </Box>
         </Box>
     
