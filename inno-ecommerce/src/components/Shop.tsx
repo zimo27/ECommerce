@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, IconButton, Box, List, ListItem, ListItemText, Button, Menu, MenuItem } from '@mui/material';
+import TextField from '@mui/material/TextField';
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ProductCard from './ProductCard';
 
@@ -19,6 +21,7 @@ const Shop: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [cart, setCart] = useState<Product[]>([]);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [searchTerm, setSearchTerm] = useState<string>('');
   
     useEffect(() => {
       fetch('https://dummyjson.com/products')
@@ -43,6 +46,14 @@ const Shop: React.FC = () => {
     const removeFromCart = (productId: number) => {
       setCart(prevCart => prevCart.filter(item => item.id !== productId));
     };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+        fetch(`https://dummyjson.com/products/search?q=${event.target.value}`)
+          .then(res => res.json())
+          .then(data => setProducts(data.products))
+          .catch(error => console.error('Error searching products:', error));
+      };
   
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -58,53 +69,58 @@ const Shop: React.FC = () => {
     return (
         <Box>
           <Box sx={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1, padding: '16px' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant="h6" component="div">
-              Shop
-            </Typography>
-            <IconButton color="inherit" onClick={handleClick}>
-              <ShoppingCartIcon />
-            </IconButton>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                PaperProps={{
-                    sx: {
-                    backgroundColor: '#333',
-                    color: '#fff',
-                    },
-                }}
-                >
-                <Box sx={{ p: 2 }}>
-                    <Typography variant="h6">Cart</Typography>
-                    {cart.length > 0 ? (
-                    <List>
-                        {cart.map(item => (
-                        <ListItem key={item.id}>
-                            <ListItemText primary={item.title} />
-                            <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
-                        </ListItem>
-                        ))}
-                    </List>
-                    ) : (
-                    <Typography variant="body1">Cart is empty</Typography>
-                    )}
-                </Box>
-            </Menu>
+  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Typography variant="h6" component="div">
+      Shop
+    </Typography>
+    <TextField
+      label="Search"
+      variant="outlined"
+      onChange={handleSearch}
+    />
+    <IconButton color="inherit" onClick={handleClick}>
+      <ShoppingCartIcon />
+    </IconButton>
+    <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      PaperProps={{
+        sx: {
+          backgroundColor: '#333',
+          color: '#fff',
+        },
+      }}
+    >
+      <Box sx={{ p: 2 }}>
+        <Typography variant="h6">Cart</Typography>
+        {cart.length > 0 ? (
+          <List>
+            {cart.map(item => (
+              <ListItem key={item.id}>
+                <ListItemText primary={item.title} />
+                <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <Typography variant="body1">Cart is empty</Typography>
+        )}
+      </Box>
+    </Menu>
+  </Box>
+</Box>
 
-          </Box>
-        </Box>
     
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ width: '25%', padding: '16px', position: 'fixed', overflowY: 'auto', height: '100vh' }}>
