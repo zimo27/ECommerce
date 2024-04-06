@@ -46,10 +46,6 @@ const Shop: React.FC = () => {
       setSelectedCategory(category);
   };
 
-  const addToCart = (product: Product) => {
-      setCart(prevCart => [...prevCart, product]);
-  };
-
   const removeFromCart = (productId: number) => {
       setCart(prevCart => prevCart.filter(item => item.id !== productId));
   };
@@ -65,8 +61,22 @@ const Shop: React.FC = () => {
       setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+//   const handleClose = () => {
+//       setAnchorEl(null);
+//   };
+
+  const handleClose = (event: React.MouseEvent<HTMLElement>) => {
+    if (!event.relatedTarget) {
       setAnchorEl(null);
+    }
+  };
+
+  const handleHover = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const addToCart = (product: Product) => {
+    setCart(prevCart => [...prevCart, product]);
   };
 
   const filteredProducts = selectedCategory !== 'All' ? products.filter(product => product.category === selectedCategory) : products;
@@ -97,7 +107,7 @@ const Shop: React.FC = () => {
                           }
                       }}
                   />
-                  <IconButton color="inherit" onClick={handleClick}>
+                  <IconButton color="inherit" onClick={handleClick} onMouseEnter={handleHover} onMouseLeave={handleClose}>
                       <ShoppingCartIcon />
                   </IconButton>
                   <Menu
@@ -171,8 +181,7 @@ const Shop: React.FC = () => {
                   <Grid container spacing={3}>
                       {filteredProducts.map(product => (
                           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                              <ProductCard product={product} />
-                              <Button onClick={() => addToCart(product)}>Add to Cart</Button>
+                              <ProductCard product={product} addToCart={addToCart}/>
                           </Grid>
                       ))}
                   </Grid>
