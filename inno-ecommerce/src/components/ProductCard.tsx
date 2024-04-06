@@ -1,9 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
-import dummyImage from '../media/dummy-product.jpg';
 
 interface Product {
   id: number;

@@ -23,8 +23,8 @@ interface Product {
 
 const Shop: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>(['All']); // Include 'All' category
-  const [selectedCategory, setSelectedCategory] = useState<string | null>('All'); // Set 'All' as default category
+  const [categories, setCategories] = useState<string[]>(['All']);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>('All');
   const [cart, setCart] = useState<Product[]>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -36,7 +36,6 @@ const Shop: React.FC = () => {
       .then(res => res.json())
       .then(data => {
         setProducts(data.products);
-        // Extract categories from products
         const uniqueCategories = ['All', ...new Set(products.map((product: Product) => product.category))];
         setCategories(uniqueCategories);
       })
@@ -44,7 +43,7 @@ const Shop: React.FC = () => {
 
     fetch('https://dummyjson.com/products/categories')
       .then(res => res.json())
-      .then(data => setCategories(['All', ...data])) // Include 'All' category
+      .then(data => setCategories(['All', ...data]))
       .catch(error => console.error('Error fetching categories:', error));
   }, []);
 
@@ -114,7 +113,7 @@ const Shop: React.FC = () => {
                   </IconButton>
                 ),
               }}
-              onKeyPress={event => {
+              onKeyDown={event => {
                 if (event.key === 'Enter') {
                   handleSearch();
                 }
@@ -137,12 +136,11 @@ const Shop: React.FC = () => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              PaperProps={{
-                sx: {
-                  backgroundColor: '#333',
-                  color: '#fff',
-                },
+              sx={{
+                backgroundColor: '#333',
+                color: '#fff',
               }}
+              
             >
               <Box sx={{ p: 2, width: '200px', height: '300px', overflowY: 'auto' }}>
                 <Typography variant="h6">Cart</Typography>
