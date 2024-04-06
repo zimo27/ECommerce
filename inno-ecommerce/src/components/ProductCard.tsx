@@ -49,9 +49,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, onSeeDeta
         <Typography variant="h5" gutterBottom>
           {product.title}
         </Typography>
-        {/* <Typography variant="body1" gutterBottom>
-          {product.description}
-        </Typography> */}
         <Rating
           name="customized-icons"
           value={product.rating}
@@ -69,7 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, onSeeDeta
         <Typography variant="body1" sx={{ textDecoration: 'underline', cursor: 'pointer', marginBottom: '8px' }} onClick={handleSeeDetails}>
           See Details
         </Typography>
-        <Button variant="contained" sx={{ backgroundColor: 'black' }} onClick={handleAddToCart}>
+        <Button variant="contained" sx={{ backgroundColor: 'black', '&:hover': {backgroundColor: 'grey'} }} onClick={handleAddToCart}>
           Add to Cart
         </Button>
       </CardContent>

@@ -38,6 +38,8 @@ const Shop: React.FC = () => {
         setProducts(data.products);
         const uniqueCategories = ['All', ...new Set(products.map((product: Product) => product.category))];
         setCategories(uniqueCategories);
+        //const uniqueCategories = ['All', ...new Set(data.products.map((product: Product) => product.category))];
+        
       })
       .catch(error => console.error('Error fetching products:', error));
 
@@ -136,10 +138,16 @@ const Shop: React.FC = () => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              sx={{
-                backgroundColor: '#333',
-                color: '#fff',
-              }}
+            //   sx={{
+            //     backgroundColor: '#333',
+            //     color: '#fff',
+            //   }}
+            PaperProps={{
+                sx: {
+                  backgroundColor: '#333',
+                  color: '#fff',
+                },
+            }}
               
             >
               <Box sx={{ p: 2, width: '200px', height: '300px', overflowY: 'auto' }}>
@@ -192,7 +200,7 @@ const Shop: React.FC = () => {
           )}
           {showProductDetails ? (
             <Box>
-            <Button onClick={handleBackToList} sx={{ textDecoration: 'underline', cursor: 'pointer', marginBottom: '8px' }}>
+            <Button onClick={handleBackToList} sx={{ textDecoration: 'underline', cursor: 'pointer', marginBottom: '8px', color: 'black' }}>
                 Back to List
             </Button>
             <Box sx={{ border: '1px solid #ccc', padding: '16px', borderRadius: '8px' }}>
