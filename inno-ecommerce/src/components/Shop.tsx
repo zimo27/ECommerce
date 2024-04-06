@@ -70,72 +70,72 @@ const Shop: React.FC = () => {
     return (
         
         <Box>
-            <WebHeader />
-          <Box sx={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1, padding: '16px' }}>
-  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-    <Typography variant="h6" component="div">
-      Shop
-    </Typography>
-    <TextField
-            label="Search"
-            variant="outlined"
-            value={searchTerm}
-            onChange={event => setSearchTerm(event.target.value)}
-            InputProps={{
-              endAdornment: (
-                <IconButton onClick={handleSearch}>
-                  <SearchIcon />
-                </IconButton>
-              ),
-            }}
-            onKeyPress={event => {
-              if (event.key === 'Enter') {
-                handleSearch();
-              }
-            }}
-          />
-    <IconButton color="inherit" onClick={handleClick}>
-      <ShoppingCartIcon />
-    </IconButton>
-    <Menu
-      id="simple-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      PaperProps={{
-        sx: {
-          backgroundColor: '#333',
-          color: '#fff',
-        },
-      }}
-    >
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h6">Cart</Typography>
-        {cart.length > 0 ? (
-          <List>
-            {cart.map(item => (
-              <ListItem key={item.id}>
-                <ListItemText primary={item.title} />
-                <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <Typography variant="body1">Cart is empty</Typography>
-        )}
-      </Box>
-    </Menu>
-  </Box>
-</Box>
+          <WebHeader />
+          <Box sx={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1, padding: '16px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h6" component="div">
+              Shop
+            </Typography>
+            <TextField
+                    label="Search"
+                    variant="outlined"
+                    value={searchTerm}
+                    onChange={event => setSearchTerm(event.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton onClick={handleSearch}>
+                          <SearchIcon />
+                        </IconButton>
+                      ),
+                    }}
+                    onKeyPress={event => {
+                      if (event.key === 'Enter') {
+                        handleSearch();
+                      }
+                    }}
+                  />
+            <IconButton color="inherit" onClick={handleClick}>
+              <ShoppingCartIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              PaperProps={{
+                sx: {
+                  backgroundColor: '#333',
+                  color: '#fff',
+                },
+              }}
+            >
+              <Box sx={{ p: 2 }}>
+                <Typography variant="h6">Cart</Typography>
+                {cart.length > 0 ? (
+                  <List>
+                    {cart.map(item => (
+                      <ListItem key={item.id}>
+                        <ListItemText primary={item.title} />
+                        <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <Typography variant="body1">Cart is empty</Typography>
+                )}
+              </Box>
+            </Menu>
+          </Box>
+        </Box>
 
     
           <Box sx={{ display: 'flex' }}>
