@@ -131,14 +131,14 @@ const Shop: React.FC = () => {
                           },
                       }}
                   >
-                      <Box sx={{ p: 2 }}>
+                      <Box sx={{ p: 2, width: '200px', height: '300px', overflowY: 'auto' }}>
                           <Typography variant="h6">Cart</Typography>
                           {cart.length > 0 ? (
                               <List>
                                   {cart.map(item => (
                                       <ListItem key={item.id}>
-                                          <ListItemText primary={item.title} />
-                                          <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
+                                          <ListItemText primary={item.title} sx={{ typography: 'body2' }}/>
+                                          <Button onClick={() => removeFromCart(item.id)} sx={{ color: 'white' }}>Remove</Button>
                                       </ListItem>
                                   ))}
                               </List>
