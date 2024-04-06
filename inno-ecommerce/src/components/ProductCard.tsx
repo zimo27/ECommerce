@@ -58,6 +58,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
         <Typography variant="body1" gutterBottom>
           {product.stock} items left
         </Typography>
+        
+        <Typography variant="body1" sx={{ textDecoration: 'underline', cursor: 'pointer', marginBottom: '8px' }}>
+          See Details
+        </Typography>
         <Button variant="contained" sx={{ backgroundColor: 'black' }} onClick={handleAddToCart}>
           Add to Cart
         </Button>

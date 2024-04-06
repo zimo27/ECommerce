@@ -138,7 +138,8 @@ const Shop: React.FC = () => {
                                   {cart.map(item => (
                                       <ListItem key={item.id}>
                                           <ListItemText primary={item.title} sx={{ typography: 'body2' }}/>
-                                          <Button onClick={() => removeFromCart(item.id)} sx={{ color: 'white' }}>Remove</Button>
+                                          <Button onClick={() => removeFromCart(item.id)} sx={{ color: 'white', textDecoration: 'underline', cursor: 'pointer' }}>Remove</Button>
+                                          
                                       </ListItem>
                                   ))}
                               </List>
