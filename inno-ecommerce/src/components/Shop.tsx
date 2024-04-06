@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, IconButton, Box, List, ListItem, ListItemText, Button, Menu, MenuItem } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import WebHeader from './WebHeader';
+import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import WebHeader from './WebHeader';
 import ProductCard from './ProductCard';
 
 interface Product {
@@ -47,9 +49,8 @@ const Shop: React.FC = () => {
       setCart(prevCart => prevCart.filter(item => item.id !== productId));
     };
 
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-        fetch(`https://dummyjson.com/products/search?q=${event.target.value}`)
+    const handleSearch = () => {
+        fetch(`https://dummyjson.com/products/search?q=${searchTerm}`)
           .then(res => res.json())
           .then(data => setProducts(data.products))
           .catch(error => console.error('Error searching products:', error));
@@ -76,10 +77,23 @@ const Shop: React.FC = () => {
       Shop
     </Typography>
     <TextField
-      label="Search"
-      variant="outlined"
-      onChange={handleSearch}
-    />
+            label="Search"
+            variant="outlined"
+            value={searchTerm}
+            onChange={event => setSearchTerm(event.target.value)}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={handleSearch}>
+                  <SearchIcon />
+                </IconButton>
+              ),
+            }}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                handleSearch();
+              }
+            }}
+          />
     <IconButton color="inherit" onClick={handleClick}>
       <ShoppingCartIcon />
     </IconButton>
